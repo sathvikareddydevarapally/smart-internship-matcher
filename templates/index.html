@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Internship Matcher</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f4f2ff, #e8f1ff);
+            color: #252342;
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: auto;
+            padding: 35px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(50, 40, 100, 0.10);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #eee9ff;
+            color: #6047c7;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #6047c7;
+            margin: 18px 0 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #6d6a80;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            margin: 26px 0 12px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .skill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px;
+            border: 1px solid #e3def3;
+            border-radius: 10px;
+            background: #fcfbff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .skill input {
+            width: 16px;
+            height: 16px;
+            accent-color: #6047c7;
+            flex-shrink: 0;
+        }
+
+        .field {
+            margin-top: 22px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .field input {
+            display: block;
+            width: 100%;
+            min-height: 45px;
+            padding: 12px;
+            border: 1px solid #d9d5ed;
+            border-radius: 9px;
+            background: white;
+            font-size: 15px;
+        }
+
+        .field input:focus {
+            outline: 2px solid #b9aaff;
+            border-color: #6047c7;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            margin-top: 28px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #6047c7;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4e37ad;
+        }
+
+        .result {
+            margin-top: 28px;
+            padding: 22px;
+            border-radius: 12px;
+            background: #f2efff;
+            border: 1px solid #e2dcff;
+        }
+
+        .result h2 {
+            color: #6047c7;
+            line-height: 1.4;
+        }
+
+        .result li {
+            margin: 12px 0;
+            line-height: 1.5;
+        }
+
+        .note {
+            margin-top: 24px;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <span class="tag">AI-POWERED CAREER EXPLORER</span>
+
+        <h1>Smart Internship Matcher</h1>
+
+        <p class="subtitle">
+            Discover a career track based on your skills, projects,
+            coding practice, and academic performance.
+        </p>
+
+        <form method="POST">
+            <h2 class="section-title">Select your skills</h2>
+
+            <div class="skills">
+                <label class="skill">
+                    <input type="checkbox" name="skills" value="Python">
+                    Python
+                </label>
+
+                <label class="skill">
+                    <input type="checkbox" name="skills" value="Java">
+                    Java
+                </label>
+
+                <label class="skill">
+                    <input type="checkbox" name="skills" value="SQL">
+                    SQL
+                </label>
+
+                <label class="skill">
+                    <input type="checkbox" name="skills" value="Machine Learning">
+                    Machine Learning
+                </label>
+
+                <label class="skill">
+                    <input type="checkbox" name="skills" value="Web Development">
+                    Web Development
+                </label>
+            </div>
+
+            <div class="field">
+                <label for="projects">Completed projects</label>
+                <input id="projects" type="number" name="projects"
+                       min="0" max="100" value="2" required>
+            </div>
+
+            <div class="field">
+                <label for="leetcode">Coding problems solved</label>
+                <input id="leetcode" type="number" name="leetcode"
+                       min="0" max="100000" value="50" required>
+            </div>
+
+            <div class="field">
+                <label for="cgpa">CGPA (out of 10)</label>
+                <input id="cgpa" type="number" name="cgpa"
+                       min="0" max="10" step="0.01" value="8.0" required>
+            </div>
+
+            <button type="submit">Find My Career Track →</button>
+        </form>
+
+        {% if result %}
+        <section class="result">
+            <h2>Your suggested track: {{ result }}</h2>
+
+            <p>
+                Use this recommendation as a starting point for exploring
+                careers, not as a prediction of internship selection.
+            </p>
+
+            <h3>Your improvement plan</h3>
+            <ul>
+                {% for suggestion in suggestions %}
+                <li>{{ suggestion }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        <p class="note">
+            Educational prototype using a small synthetic training dataset.
+            Its predictions are experimental and have not been validated
+            against real internship outcomes.
+        </p>
+    </main>
+</body>
+</html>

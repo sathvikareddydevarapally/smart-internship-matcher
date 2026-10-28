@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+internship_match_model_backup.pkl
